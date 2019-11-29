@@ -3,6 +3,7 @@ pipeline {
     tools {
         maven 'Maven 3.6.3'
         jdk 'jdk11'
+        nodejs 'node_lts'
     }
     stages {
         stage ('Initialize') {
@@ -16,7 +17,7 @@ pipeline {
 
         stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn -B -Dmaven.test.failure.ignore=true install' 
             }
             post {
                 success {
