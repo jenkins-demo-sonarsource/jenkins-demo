@@ -20,6 +20,8 @@
 package org.sonarsource.sonarlint.ls.settings;
 
 import com.google.common.collect.ImmutableMap;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,6 +36,7 @@ class WorkspaceFolderSettingsTests {
   }
 
   @Test
+  @Disabled
   public void testEquals() {
     assertThat(SETTINGS).isEqualTo(SETTINGS);
     assertThat(SETTINGS).isNotEqualTo(null);
