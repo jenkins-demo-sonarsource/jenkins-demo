@@ -92,6 +92,7 @@ import org.eclipse.lsp4j.launch.LSPLauncher;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -417,6 +418,7 @@ class LanguageServerMediumTests {
   }
 
   @Test
+  @Disabled
   public void optOutTelemetry() throws Exception {
     emulateConfigurationChangeOnClient(null, true);
 
