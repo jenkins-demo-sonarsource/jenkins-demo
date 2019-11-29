@@ -28,11 +28,34 @@ pipeline {
             }
         }
 
-        stage('SonarCloud analysis') {
+        stage('SonarCloud branch analysis') {
             agent any
+            when {
+                not {
+                    changeRequest()
+                }
+            }
             steps {
                 withSonarQubeEnv(installationName: 'SonarCloud') {
-                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar -Dsonar.projectKey=jenkins-demo'
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar \
+                        -Dsonar.projectKey=jenkins-demo-sonarsource_jenkins-demo \
+                        -Dsonar.branch.name=${env.BRANCH_NAME}"
+                }
+            }
+        }
+
+        stage('SonarCloud PR analysis') {
+            agent any
+            when {
+                changeRequest()
+            }
+            steps {
+                withSonarQubeEnv(installationName: 'SonarCloud') {
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar \
+                        -Dsonar.projectKey=jenkins-demo-sonarsource_jenkins-demo \
+                        -Dsonar.pullrequest.key=${env.CHANGE_ID} \
+                        -Dsonar.pullrequest.base=${env.CHANGE_TARGET} \
+                        -Dsonar.pullrequest.branch=${env.CHANGE_BRANCH}"
                 }
             }
         }
