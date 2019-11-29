@@ -30,8 +30,10 @@ pipeline {
 
         stage('SonarCloud analysis') {
             agent any
-            withSonarQubeEnv(installationName: 'SonarCloud') {
-                sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar -Dsonar.projectKey=jenkins-demo'
+            steps {
+                withSonarQubeEnv(installationName: 'SonarCloud') {
+                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar -Dsonar.projectKey=jenkins-demo'
+                }
             }
         }
 
