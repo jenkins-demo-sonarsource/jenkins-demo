@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv(installationName: 'SonarCloud') {
-                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar \
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar -Pcoverage \
                         -Dsonar.projectKey=jenkins-demo-sonarsource_jenkins-demo \
                         -Dsonar.branch.name=${env.BRANCH_NAME}"
                 }
@@ -51,7 +51,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv(installationName: 'SonarCloud') {
-                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar \
+                    sh "mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar -Pcoverage \
                         -Dsonar.projectKey=jenkins-demo-sonarsource_jenkins-demo \
                         -Dsonar.pullrequest.key=${env.CHANGE_ID} \
                         -Dsonar.pullrequest.base=${env.CHANGE_TARGET} \
